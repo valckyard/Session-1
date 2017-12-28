@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bj martin ber", "MB\bj mart
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sapin noel", "Sapinage1\sapin noel.csproj", "{C02DCCC8-B440-47CE-A344-C88620092064}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crypto Visuel", "Crypto Visuel\Crypto Visuel.csproj", "{24A18CBE-4E56-4F91-BD59-FB048A333C32}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -123,6 +125,10 @@ Global
 		{C02DCCC8-B440-47CE-A344-C88620092064}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C02DCCC8-B440-47CE-A344-C88620092064}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C02DCCC8-B440-47CE-A344-C88620092064}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24A18CBE-4E56-4F91-BD59-FB048A333C32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24A18CBE-4E56-4F91-BD59-FB048A333C32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24A18CBE-4E56-4F91-BD59-FB048A333C32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24A18CBE-4E56-4F91-BD59-FB048A333C32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
