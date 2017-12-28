@@ -92,19 +92,19 @@ namespace Crypto_Visuel
             SavAll.Filter = "Text Files | *.txt";
             SavAll.DefaultExt = "txt";
             SavAll.InitialDirectory = @"c:\";
-                if (SavAll.ShowDialog() == true)
+            if (SavAll.ShowDialog() == true)
+            {
+                using (StreamWriter sw = new StreamWriter(SavAll.OpenFile()))
                 {
-                    using (StreamWriter sw = new StreamWriter(SavAll.OpenFile()))
-                    {
-                        sw.Write("Key 1:");
-                        sw.WriteLine(Key1.Text);
-                        sw.Write("Key 2:");
-                        sw.WriteLine(Key2.Text);
-                        sw.Write("Key 3:");
-                        sw.WriteLine(Key3.Text);
-                    }
+                    sw.Write("Key 1:");
+                    sw.WriteLine(Key1.Text);
+                    sw.Write("Key 2:");
+                    sw.WriteLine(Key2.Text);
+                    sw.Write("Key 3:");
+                    sw.WriteLine(Key3.Text);
                 }
-            
+            }
+
 
 
         }
@@ -151,7 +151,7 @@ namespace Crypto_Visuel
 
             if (Key1.Text != "" & TxtB1.Text != "")
             {
-                
+
                 KeyField1 = Encoding.ASCII.GetBytes(Key1.Text);
                 Crypto.CryptFULL(KeyField1, TxtB1.Text);
             }
