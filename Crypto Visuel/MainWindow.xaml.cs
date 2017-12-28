@@ -30,32 +30,37 @@ namespace Crypto_Visuel
 
         }
 
-
-        static public void CryptFULL(byte[] cle, string File)
+        public static string NewFile;
+        static public void CryptFULL(byte[] cle, string OriginFile)
         {
-            if (System.IO.File.Exists(File) == false)
+            if (System.IO.File.Exists(OriginFile) == false)
             {
 
             }
             else
             {
-                byte[] Fichier = System.IO.File.ReadAllBytes(File);
+                byte[] Fichier = System.IO.File.ReadAllBytes(OriginFile);
 
-                if (System.IO.Path.GetExtension(File) == ".crypto")
+                if (System.IO.Path.GetExtension(OriginFile) == ".crypto")
                 {
-                    File = System.IO.Path.Combine(
-                    System.IO.Path.GetDirectoryName(File),
-                    File = System.IO.Path.GetFileNameWithoutExtension(File));
-
+                    NewFile = System.IO.Path.Combine(
+                    System.IO.Path.GetDirectoryName(OriginFile),
+                    NewFile = System.IO.Path.GetFileNameWithoutExtension(OriginFile));
                 }
                 else
-                    File = File + ".crypto";
-
-                string OutFile = File;
+                {
+                    NewFile = OriginFile + ".crypto";
+                }
+               
+                string OutFile = NewFile;
 
                 Crypto.AppliquerCrypto(cle, Fichier); // 2 x decript
 
                 System.IO.File.WriteAllBytes(OutFile, Fichier);
+                if (MainWindow.DelFiles == true)
+                {
+                    System.IO.File.Delete(OriginFile);
+                }
             }
         }
     }
@@ -92,6 +97,7 @@ namespace Crypto_Visuel
         }
         public byte[] KeyField1, KeyField2, KeyField3;
         public byte[] FileField1, FileField2, FileField3;
+        public static bool DelFiles = false;
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -230,6 +236,16 @@ namespace Crypto_Visuel
             }
         }
 
+        private void DelYN_Checked(object sender, RoutedEventArgs e)
+        {
+            DelFiles = true;
+    }
+
+        private void DelYN_Unchecked(object sender, RoutedEventArgs e)
+        {
+            DelFiles = false;
+        }
+
         private void Select1_Click(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.OpenFileDialog Sb1 = new Microsoft.Win32.OpenFileDialog();
@@ -279,6 +295,11 @@ namespace Crypto_Visuel
                 F1Lab.Foreground = new SolidColorBrush(Color.FromRgb(0, 255, 12));
                 F1Lab.Content = System.IO.Path.GetFileName(TxtB1.Text) + " Done!!!";
             }
+            else
+            {
+                F1Lab.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+                F1Lab.Content = "Missing Key....";
+            }
             if (Key2.Text != "" & System.IO.File.Exists(TxtB2.Text) == true)
             {
                 KeyField2 = Encoding.ASCII.GetBytes(Key2.Text);
@@ -286,12 +307,41 @@ namespace Crypto_Visuel
                 F2Lab.Foreground = new SolidColorBrush(Color.FromRgb(0, 255, 12));
                 F2Lab.Content = System.IO.Path.GetFileName(TxtB2.Text) + " Done!!!";
             }
-            if (Key3.Text != "" & System.IO.File.Exists(TxtB3.Text) == true)
+            else
+            {
+                F2Lab.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+                F2Lab.Content = "Missing Key....";
+            }
+                if (Key3.Text != "" & System.IO.File.Exists(TxtB3.Text) == true)
             {
                 KeyField3 = Encoding.ASCII.GetBytes(Key3.Text);
                 Crypto.CryptFULL(KeyField3, TxtB3.Text);
                 F3Lab.Foreground = new SolidColorBrush(Color.FromRgb(0, 255, 12));
                 F3Lab.Content = System.IO.Path.GetFileName(TxtB3.Text) + " Done!!!";
+            }
+                else
+            {
+                F3Lab.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+                F3Lab.Content = "Missing Key....";
+            }
+            if (DelFiles == true)
+            {
+                if(System.IO.File.Exists(TxtB1.Text) == false)
+                    {
+                    F1Lab.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+                    TxtB1.Text = "";
+                    F1Lab.Content = "File Deleted (Checked) Please Select a New File";
+                }
+               if (System.IO.File.Exists(TxtB2.Text) == false){
+                    F2Lab.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+                    TxtB2.Text = "";
+                    F2Lab.Content = "File Deleted (Checked) Please Select a New File";
+                }
+                if (System.IO.File.Exists(TxtB3.Text) == false) {
+                    TxtB3.Text = "";
+                    F3Lab.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+                    F3Lab.Content = "File Deleted (Checked) Please Select a New File";
+                }
             }
         }
     }
