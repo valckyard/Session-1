@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+
 namespace Crypto_Visuel
 {
     class Crypto
@@ -32,23 +33,30 @@ namespace Crypto_Visuel
 
         static public void CryptFULL(byte[] cle, string File)
         {
-            byte[] Fichier = System.IO.File.ReadAllBytes(File);
-
-            if (System.IO.Path.GetExtension(File) == ".crypto")
+            if (System.IO.File.Exists(File) == false)
             {
-                File = System.IO.Path.Combine(
-                System.IO.Path.GetDirectoryName(File),
-                File = System.IO.Path.GetFileNameWithoutExtension(File));
 
             }
             else
-                File = File + ".crypto";
+            {
+                byte[] Fichier = System.IO.File.ReadAllBytes(File);
 
-            string OutFile = File;
+                if (System.IO.Path.GetExtension(File) == ".crypto")
+                {
+                    File = System.IO.Path.Combine(
+                    System.IO.Path.GetDirectoryName(File),
+                    File = System.IO.Path.GetFileNameWithoutExtension(File));
 
-            Crypto.AppliquerCrypto(cle, Fichier); // 2 x decript
+                }
+                else
+                    File = File + ".crypto";
 
-            System.IO.File.WriteAllBytes(OutFile, Fichier);
+                string OutFile = File;
+
+                Crypto.AppliquerCrypto(cle, Fichier); // 2 x decript
+
+                System.IO.File.WriteAllBytes(OutFile, Fichier);
+            }
         }
     }
     /// <summary>
@@ -96,76 +104,195 @@ namespace Crypto_Visuel
             {
                 using (StreamWriter sw = new StreamWriter(SavAll.OpenFile()))
                 {
-                    sw.Write("Key 1:");
-                    sw.WriteLine(Key1.Text);
-                    sw.Write("Key 2:");
-                    sw.WriteLine(Key2.Text);
-                    sw.Write("Key 3:");
-                    sw.WriteLine(Key3.Text);
+                    if (TxtB1.Text != "")
+                    {
+                        sw.Write($"{System.IO.Path.GetFileName(TxtB1.Text)} Key : ");
+                        sw.WriteLine(Key1.Text);
+                    }
+                    if (TxtB2.Text != "")
+                    {
+                        sw.Write($"{System.IO.Path.GetFileName(TxtB2.Text)} Key : ");
+                        sw.WriteLine(Key2.Text);
+                    }
+                    if (TxtB3.Text != "")
+                    {
+                        sw.Write($"{System.IO.Path.GetFileName(TxtB3.Text)} Key : ");
+                        sw.WriteLine(Key3.Text);
+                    }
                 }
             }
+        }
+
+        private void TxtB1_IsKeyboardFocusedChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if ((System.IO.File.Exists(TxtB1.Text) == true))
+            {
+                F1Lab.Content = System.IO.Path.GetFileName(TxtB1.Text) + " In Progress!";
+            }
+            else
+            {
+                TxtB1.Text = "";
+                F1Lab.Content = "File One : No File Selected...";
+            }
+        }
+
+        private void TxtB1_PreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            F1Lab.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+            if ((System.IO.File.Exists(TxtB1.Text) == true))
+            {
+                F1Lab.Content = System.IO.Path.GetFileName(TxtB1.Text) + " In Progress!";
+            }
+            else
+            {
+                TxtB1.Text = "";
+                F1Lab.Content = "File One : No File Selected...or invalid!";
+            }
+        }
+
+        private void TxtB1_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            F1Lab.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+            if (e.Key == Key.Enter)
+            {
 
 
+                if ((System.IO.File.Exists(TxtB1.Text) == true))
+                {
+                    F1Lab.Content = System.IO.Path.GetFileName(TxtB1.Text) + " In Progress!";
+                }
+                else
+                {
+                    TxtB1.Text = "";
+                    F1Lab.Content = "File One : No File Selected...or invalid!";
+                }
+            }
+        }
 
+        private void TxtB2_PreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            F2Lab.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                if ((System.IO.File.Exists(TxtB2.Text) == true))
+                {
+                    F2Lab.Content = System.IO.Path.GetFileName(TxtB2.Text) + " In Progress!";
+                }
+                else
+                {
+                    TxtB2.Text = "";
+                    F2Lab.Content = "File Two : No File Selected...or invalid!";
+                }
+        }
+
+        private void TxtB2_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            F2Lab.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+            if (e.Key == Key.Enter)
+            {
+                if ((System.IO.File.Exists(TxtB2.Text) == true))
+                {
+                    F2Lab.Content = System.IO.Path.GetFileName(TxtB2.Text) + " In Progress!";
+                }
+                else
+                {
+                    TxtB2.Text = "";
+                    F2Lab.Content = "File Two : No File Selected...or invalid!";
+                }
+            }
+        }
+
+        private void TxtB3_PreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if ((System.IO.File.Exists(TxtB3.Text) == true))
+            {
+                F3Lab.Content = System.IO.Path.GetFileName(TxtB3.Text) + " In Progress!";
+            }
+            else
+            {
+                TxtB3.Text = "";
+                F3Lab.Content = "File Three : No File Selected...or invalid!";
+            }
+        }
+
+        private void TxtB3_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            F3Lab.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+            if (e.Key == Key.Enter)
+            {
+                if ((System.IO.File.Exists(TxtB3.Text) == true))
+                {
+                    F3Lab.Content = System.IO.Path.GetFileName(TxtB3.Text) + " In Progress!";
+                }
+                else
+                {
+                    TxtB3.Text = "";
+                    F3Lab.Content = "File Three : No File Selected...or invalid!";
+                }
+            }
         }
 
         private void Select1_Click(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.OpenFileDialog Sb1 = new Microsoft.Win32.OpenFileDialog();
+            F1Lab.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
             if (Sb1.ShowDialog() == true)
             {
                 TxtB1.Text = Sb1.FileName;
-            }
+                F1Lab.Content = System.IO.Path.GetFileName(TxtB1.Text) + " In Progress!";
+            }  
             else
             {
-                TxtB1.Text = null;
+                TxtB1.Text = "";
+                F1Lab.Content = "File One : No File Selected...";
             }
         }
         private void Select2_Click(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.OpenFileDialog Sb2 = new Microsoft.Win32.OpenFileDialog();
+            F2Lab.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
             if (Sb2.ShowDialog() == true)
             {
                 TxtB2.Text = Sb2.FileName;
-            }
-            else
-            {
-                TxtB2.Text = null;
+
+                F2Lab.Content = System.IO.Path.GetFileName(TxtB2.Text) + " In Progress!";
             }
         }
         private void Select3_Click(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.OpenFileDialog Sb3 = new Microsoft.Win32.OpenFileDialog();
+            F3Lab.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+
             if (Sb3.ShowDialog() == true)
             {
                 TxtB3.Text = Sb3.FileName;
-            }
-            else
-            {
-                TxtB3.Text = null;
+                F3Lab.Content = System.IO.Path.GetFileName(TxtB3.Text) + " In Progress!";
             }
         }
 
         private void ENCrypt_Click(object sender, RoutedEventArgs e)
         {
 
-            if (Key1.Text != "" & TxtB1.Text != "")
+            if (Key1.Text != "" & System.IO.File.Exists(TxtB1.Text) == true)
             {
 
                 KeyField1 = Encoding.ASCII.GetBytes(Key1.Text);
                 Crypto.CryptFULL(KeyField1, TxtB1.Text);
+                F1Lab.Foreground = new SolidColorBrush(Color.FromRgb(0, 255, 12));
+                F1Lab.Content = System.IO.Path.GetFileName(TxtB1.Text) + " Done!!!";
             }
-            if (Key2.Text != "" & TxtB2.Text != "")
+            if (Key2.Text != "" & System.IO.File.Exists(TxtB2.Text) == true)
             {
                 KeyField2 = Encoding.ASCII.GetBytes(Key2.Text);
                 Crypto.CryptFULL(KeyField2, TxtB2.Text);
+                F2Lab.Foreground = new SolidColorBrush(Color.FromRgb(0, 255, 12));
+                F2Lab.Content = System.IO.Path.GetFileName(TxtB2.Text) + " Done!!!";
             }
-            if (Key3.Text != "" & TxtB3.Text != "")
+            if (Key3.Text != "" & System.IO.File.Exists(TxtB3.Text) == true)
             {
                 KeyField3 = Encoding.ASCII.GetBytes(Key3.Text);
                 Crypto.CryptFULL(KeyField3, TxtB3.Text);
+                F3Lab.Foreground = new SolidColorBrush(Color.FromRgb(0, 255, 12));
+                F3Lab.Content = System.IO.Path.GetFileName(TxtB3.Text) + " Done!!!";
             }
-            Progress.Content = "Done!!!";
         }
     }
 }
