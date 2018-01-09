@@ -20,10 +20,18 @@ namespace cours17wpfcalc
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-            MyButtons();
-        }
+        public static void MyButtons()        { }
+        
+            private void Button_Click(object sender, RoutedEventArgs e)
+            {
+                Button x = (Button)sender;
+                CalcTxt.Text += x.Content.ToString();
+            }
+
+            private void Button_Result(object sender, RoutedEventArgs e)
+            {
+
+            }
+        
     }
 }
