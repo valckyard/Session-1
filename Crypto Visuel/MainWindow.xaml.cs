@@ -54,8 +54,5 @@ namespace Crypto_Visuel
                 }
             }
         }
-        public byte[] KeyField1, KeyField2, KeyField3;
-        public byte[] FileField1, FileField2, FileField3;
-        public static bool DelFiles = false;
     }
 }
