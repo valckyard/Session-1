@@ -16,16 +16,22 @@ using System.IO;
 
 namespace Crypto_Visuel
 {
-   
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+
+    /// CryptoClass calc class
+    /// Buttons.cs button codes
+    /// 
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
         }
+
+
+        public byte[] KeyField1, KeyField2, KeyField3;
+        public static bool DelFiles = false;
+
+
         private void SelectAddress(object sender, RoutedEventArgs e)
         {
             TextBox tb = (sender as TextBox);
