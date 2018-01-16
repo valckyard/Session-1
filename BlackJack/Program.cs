@@ -135,6 +135,7 @@ namespace BlackJack
 
                 }
             }
+
             foreach (cartes carte in cartot)
             {
                 if (carte.valeur > 1 & carte.valeur < 7)
@@ -152,6 +153,7 @@ namespace BlackJack
 
             }
         }       
+
         public void brasse()
         {
             Random brasser = new Random();
